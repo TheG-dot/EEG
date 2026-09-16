@@ -25,12 +25,3 @@ The top 20 EEG features most strongly correlated with the continuous `(9 - Valen
 | `CH29_wavelet_energy_d1` | 0.0893 |
 | `CH10_peak_to_peak` | 0.0886 |
 | `CH23_line_length` | 0.0886 |
-
-## Regression Pipeline Performance
-An `XGBRegressor` was trained on the 8 universally optimal channels to predict the continuous Stress Index using Subject-wise 5-Fold Cross Validation.
-
-| Metric | Mean CV Score |
-|--------|---------------|
-| RMSE   | 2.8775 |
-| MAE    | 2.2684 |
-| R^2    | -0.1822 |
