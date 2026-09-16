@@ -12,19 +12,19 @@ def is_process_running(script_name):
     return False
 
 def main():
-    print("Waiting for rebuild_dataset.py to finish...")
-    while is_process_running("rebuild_dataset.py"):
+    print("Waiting for 01_build_dataset.py to finish...")
+    while is_process_running("01_build_dataset.py"):
         time.sleep(10)
         
-    print("rebuild_dataset.py has finished. Running Task 3 Analysis & Regression...")
+    print("01_build_dataset.py has finished. Running Task 3 Analysis & Regression...")
     try:
-        subprocess.run(["python", "task3_analysis_and_regression.py"], check=True)
+        subprocess.run(["python", "02_train_regression.py"], check=True)
     except Exception as e:
         print(f"Error running regression: {e}")
         
     print("Starting Optuna Overnight Optimization...")
     try:
-        subprocess.run(["python", "optimize_pipeline.py"], check=True)
+        subprocess.run(["python", "03_train_classification.py"], check=True)
     except Exception as e:
         print(f"Error running optimization: {e}")
         

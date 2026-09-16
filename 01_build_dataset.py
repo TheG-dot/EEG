@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
-from feature_extraction import extract_features_1d
+from extract_features import extract_features_1d
 
 from joblib import Parallel, delayed
 
