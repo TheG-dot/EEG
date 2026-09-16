@@ -1,0 +1,6 @@
+*.dat
+*.parquet
+*.db
+*.pkl
+*.json
+__pycache__/
