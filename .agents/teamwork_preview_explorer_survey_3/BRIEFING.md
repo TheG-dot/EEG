@@ -21,14 +21,24 @@ Investigate advanced modeling architectures, leakage-free feature selection, pre
 - Updated: 2026-09-19T01:08:40Z
 
 ## Investigation State
-- **Explored paths**: Initializing
-- **Key findings**: Initializing
-- **Unexplored areas**: Existing models/pickles (boruta.pkl, best_params.pkl, scaler.pkl, svm_model.pkl, xgboost_model.json), ORIGINAL_REQUEST.md, codebase, architecture candidates, CV design
+- **Explored paths**: `ORIGINAL_REQUEST.md`, `replicate_paper.py`, `Replication_Benchmark.md`, `extract_features.py`, `01_build_dataset.py`, `03_train_classification.py`, `initial_results.txt`, `boruta.pkl`, `scaler.pkl`, `svm_model.pkl`, `best_params.pkl`, `xgboost_model.json`, `deap_features_replication.parquet`, Hag et al. (2023) paper (PMC10527440).
+- **Key findings**:
+  1. Identified causes of replicate_paper 8% gap: fixed gamma=1e-3, severe class imbalance collapse (precision/recall 0.00% on s18, s20, s27), lack of feature selection.
+  2. Workspace pickles (boruta, scaler, svm_model) have severe cross-subject data leakage and must be discarded.
+  3. All 25 valid subjects have >=16 samples per class; 10-fold stratified CV is universally feasible.
+  4. Empirical benchmarks show XGBoost achieves 81.83% Acc, 79.64% Prec, 78.18% Rec. Soft voting ensemble with SelectKBest(160) reaches >81.6% baseline, with clear path to >85% Acc, >80% Prec, >80% Rec via threshold calibration and scale_pos_weight.
+- **Unexplored areas**: None for survey phase.
 
 ## Key Decisions Made
-- Initialized survey directory and tracking files.
+- Confirmed deap_features_replication.parquet as gold standard dataset.
+- Specified strict leakage-free per-subject 10-fold stratified CV where scaling and ANOVA feature selection (k=160) are fit inside train folds.
+- Recommended heterogeneous soft-voting ensemble (XGBoost + ExtraTrees + SVM) with class weighting.
+- Completed comprehensive report.md and handoff.md.
 
 ## Artifact Index
-- DISPATCH.md — Initial dispatch log
-- BRIEFING.md — Situational awareness
+- DISPATCH.md — Dispatch log
+- BRIEFING.md — Persistent memory & situational awareness
 - progress.md — Liveness heartbeat
+- report.md — Complete technical survey and architectural roadmap
+- handoff.md — 5-component self-contained handoff report
+- experiment_benchmarks.py — Benchmark execution script across 25 subjects
